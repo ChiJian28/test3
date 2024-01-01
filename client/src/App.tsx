@@ -7,7 +7,7 @@ const App = () => {
 
   const createTodo = async () => {
     const body = { description };
-    await axios.post('http://localhost:5050/todos', body, {
+    await axios.post(import.meta.env.VITE_PUBLIC_URL, body, {
       headers: { 'Content-Type': 'application/json' },
     });
     console.log('created successfully');
@@ -19,7 +19,7 @@ const App = () => {
   }, [])
 
   const fetchData = async () => {
-    const result = await axios.get('http://localhost:5050/todos');
+    const result = await axios.get(import.meta.env.VITE_PUBLIC_URL);
     const data = result.data.allTodos;
     setUer(data);
   }
