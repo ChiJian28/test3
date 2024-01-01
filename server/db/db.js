@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const pg = require('pg');
 const { Sequelize } = require('sequelize');
 
 // // connect to local db
@@ -18,6 +18,7 @@ const { Sequelize } = require('sequelize');
 // connect to vercel db (cloud)
 const sequelize = new Sequelize(process.env.POSTGRES_URL, {
     dialect: 'postgres',
+    dialectModule: pg, // 添加这一行
     dialectOptions: {
         ssl: {
             require: true,
