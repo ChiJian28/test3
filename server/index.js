@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const todoRoute = require('./routes/todoRoute.js');
+const imageRoute = require('./routes/imageRoute.js');
 require('dotenv').config();
 
 const { Sequelize } = require('sequelize');
@@ -18,6 +19,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/todos', todoRoute);
+app.use('/images', imageRoute);
 
 const server = async () => {
   try {

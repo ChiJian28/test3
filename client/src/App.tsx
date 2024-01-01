@@ -11,7 +11,7 @@ const App = () => {
     await axios.post(baseURL, body, {
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log('created successfully');
+    console.log('created todo successfully');
     fetchData();
   }
 
@@ -25,6 +25,18 @@ const App = () => {
     setUer(data);
   }
 
+  const createImage = async () => {
+    await axios.post(`${import.meta.env.VITE_PUBLIC_URL}images`, {
+      prompt_user: 'Ironman is eating',
+      amount: 1
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log('created image successfully');
+  }
+
   return (
     <div>
       <input onChange={e => setDescription(e.target.value)} type="text" placeholder="Description ... " />
@@ -34,6 +46,8 @@ const App = () => {
           {e.description}
         </div>
       ))}
+
+      <button onClick={() => createImage()}>Create Image</button>
     </div>
   )
 }
