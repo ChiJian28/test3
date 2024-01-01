@@ -4,10 +4,11 @@ import axios from "axios";
 const App = () => {
   const [description, setDescription] = useState('');
   const [user, setUer] = useState([]);
+  const baseURL = import.meta.env.VITE_PUBLIC_URL + 'todos'
 
   const createTodo = async () => {
     const body = { description };
-    await axios.post(import.meta.env.VITE_PUBLIC_URL, body, {
+    await axios.post(baseURL, body, {
       headers: { 'Content-Type': 'application/json' },
     });
     console.log('created successfully');
@@ -19,7 +20,7 @@ const App = () => {
   }, [])
 
   const fetchData = async () => {
-    const result = await axios.get(import.meta.env.VITE_PUBLIC_URL);
+    const result = await axios.get(baseURL);
     const data = result.data.allTodos;
     setUer(data);
   }
