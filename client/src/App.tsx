@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react"
+import axios from "axios";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [description, setDescription] = useState('');
+  const [user, setUer] = useState([]);
+
+  const createTodo = async () => {
+    const body = { description };
+    await axios.post('http://localhost:5050/todos', body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log('created successfully');
+    fetchData();
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  const fetchData = async () => {
+    const result = await axios.get('http://localhost:5050/todos');
+    const data = result.data.allTodos;
+    setUer(data);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>CJ here</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <input onChange={e => setDescription(e.target.value)} type="text" placeholder="Description ... " />
+      <button onClick={() => createTodo()}>Create Todo</button>
+      {user?.map((e: any) => (
+        <div key={e.todo_id}>
+          {e.description}
+        </div>
+      ))}
+    </div>
   )
 }
 
