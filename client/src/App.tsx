@@ -26,7 +26,7 @@ const App = () => {
   }
 
   const createImage = async () => {
-    await axios.post(`${import.meta.env.VITE_PUBLIC_URL}images`, {
+    const res = await axios.post(`${import.meta.env.VITE_PUBLIC_URL}images`, {
       prompt_user: 'Ironman is eating',
       amount: 1
     }, {
@@ -34,6 +34,8 @@ const App = () => {
         'Content-Type': 'application/json'
       }
     });
+    const data = res.data;
+    console.log(data);
     console.log('created image successfully');
   }
 
